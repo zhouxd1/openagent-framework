@@ -48,7 +48,22 @@ Thumbs.db
 *.sqlite
 *.sqlite3
 
-# Misc
-.eslintcache
-.node_repl_history
-*.pem
+# Development reports (temporary)
+*-report.md
+*-progress.md
+*-roadmap.md
+*-summary.md
+*-fix-*.md
+*-FIX-*.md
+*-STATUS.md
+*-COMPLETE.md
+*DEPLOYMENT-SUMMARY.md
+*DEPLOYMENT.md
+
+# Keep only user-facing docs
+!docs/api/
+!docs/architecture/
+!docs/best-practices/
+!docs/getting-started/
+!docs/faq.md
+!docs/performance-report.md
