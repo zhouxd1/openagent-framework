@@ -6,11 +6,22 @@ node_modules/
 # Testing
 coverage/
 .nyc_output/
+*.test.js
+*.test.js.map
+*.test.d.ts
 
 # Build
 dist/
 build/
 *.tsbuildinfo
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
+
+# Keep TypeScript source files
+!src/**/*.ts
+!**/*.ts
 
 # Environment
 .env
@@ -59,6 +70,15 @@ Thumbs.db
 *-COMPLETE.md
 *DEPLOYMENT-SUMMARY.md
 *DEPLOYMENT.md
+files-to-remove.md
+
+# Monitoring status
+monitor-*.json
+project-status.json
+MONITORING.md
+
+# Performance data
+docs/performance-data.json
 
 # Keep only user-facing docs
 !docs/api/
@@ -66,4 +86,10 @@ Thumbs.db
 !docs/best-practices/
 !docs/getting-started/
 !docs/faq.md
-!docs/performance-report.md
+
+# Code docs - only keep README and user guides
+!code/README.md
+!code/CHANGELOG.md
+!code/CODE_OF_CONDUCT.md
+!code/CONTRIBUTING.md
+!code/LICENSE
