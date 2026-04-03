@@ -148,28 +148,6 @@ docker-compose logs -f
 
 ---
 
-## 🔗 快速链接
-
-- 📦 [GitHub 仓库](https://github.com/your-org/openagent-framework)
-- 🐛 [报告问题](https://github.com/your-org/openagent-framework/issues)
-- 💬 [Discord 社区](https://discord.gg/openagent)
-- 📧 [邮件支持](mailto:support@openagent.dev)
-
----
-
-## 📊 文档统计
-
-| 类别 | 文档数量 | 页数 |
-|------|---------|------|
-| 快速开始 | 4 | 20+ |
-| API 参考 | 4 | 50+ |
-| 架构设计 | 4 | 40+ |
-| 最佳实践 | 4 | 35+ |
-| 其他 | 1 FAQ | 15+ |
-| **总计** | **17** | **160+** |
-
----
-
 ## 🤝 贡献指南
 
 我们欢迎所有形式的贡献！
@@ -225,4 +203,4 @@ git push origin feature/your-feature
 
 **Happy Coding! 🚀**
 
-如有任何问题，请查看 [FAQ](./faq.md) 或 [联系我们](mailto:support@openagent.dev)。
+如有任何问题，请查看 [FAQ](./faq.md) 或 [联系我们](lovejob2008@gmail.com)。
