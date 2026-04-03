@@ -1,0 +1,27 @@
+{
+  "name": "openagent-lambda",
+  "version": "1.0.0",
+  "description": "OpenAgent Framework - AWS Lambda Deployment",
+  "main": "dist/handler.js",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "serverless deploy",
+    "deploy:prod": "serverless deploy --stage production",
+    "deploy:dev": "serverless deploy --stage development",
+    "remove": "serverless remove",
+    "logs": "serverless logs -f api -t",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@openagent/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.126",
+    "serverless": "^3.38.0",
+    "serverless-plugin-warmup": "^8.2.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

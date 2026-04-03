@@ -1,0 +1,20 @@
+apiVersion: v2
+name: openagent
+description: OpenAgent Framework - Enterprise AI Agent Platform
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - ai
+  - agent
+  - llm
+  - openai
+  - claude
+  - deepseek
+maintainers:
+  - name: OpenAgent Team
+    email: team@openagent.dev
+sources:
+  - https://github.com/openagent/openagent-framework
+home: https://openagent.dev
+icon: https://openagent.dev/logo.png

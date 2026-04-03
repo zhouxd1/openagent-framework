@@ -1,0 +1,42 @@
+{
+  "name": "@openagent/llm-openai",
+  "version": "0.1.0-alpha.1",
+  "description": "OpenAI LLM adapter for OpenAgent Framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@openagent/core": "^0.1.0-alpha.1",
+    "openai": "^4.24.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0",
+    "@vitest/coverage-v8": "^1.2.0"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "llm",
+    "openai",
+    "gpt",
+    "gpt-4",
+    "function-calling"
+  ],
+  "author": "OpenAgent Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openagent/framework",
+    "directory": "packages/llm-openai"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@openagent/tools",
+  "version": "0.1.0-alpha.1",
+  "description": "Tool execution system for OpenAgent Framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@openagent/core": "^0.1.0-alpha.1",
+    "zod": "^3.22.4",
+    "execa": "^8.0.1",
+    "jsonpath-plus": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "tools",
+    "executor"
+  ],
+  "author": "OpenAgent Team",
+  "license": "MIT"
+}

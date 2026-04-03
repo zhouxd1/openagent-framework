@@ -1,0 +1,48 @@
+{
+  "defaultProvider": "openai",
+  "providers": {
+    "openai": {
+      "apiKey": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "baseURL": "https://api.openai.com/v1",
+      "defaultModel": "gpt-4",
+      "timeout": 60000,
+      "maxRetries": 3
+    },
+    "zhipu": {
+      "apiKey": "zhipu-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "baseURL": "https://open.bigmodel.cn/api/paas/v4/",
+      "defaultModel": "glm-4",
+      "timeout": 60000,
+      "maxRetries": 3
+    },
+    "deepseek": {
+      "apiKey": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "baseURL": "https://api.deepseek.com/v1",
+      "defaultModel": "deepseek-chat",
+      "timeout": 60000,
+      "maxRetries": 3
+    },
+    "ollama": {
+      "baseURL": "http://localhost:11434/v1",
+      "defaultModel": "llama2",
+      "timeout": 120000,
+      "maxRetries": 2
+    }
+  },
+  "apiKeys": {
+    "openai": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  "defaultModel": "gpt-4",
+  "tools": {
+    "enabled": ["*"],
+    "disabled": []
+  },
+  "output": {
+    "format": "text",
+    "color": true
+  },
+  "history": {
+    "enabled": true,
+    "maxSize": 1000
+  }
+}

@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Session Management
+model Session {
+  id          String   @id @default(uuid())
+  userId      String
+  status      String   @default("active") // active, paused, closed
+  metadata    String?  // JSON string for additional session data
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  messages    Message[]
+  toolCalls   ToolCall[]
+
+  @@index([userId])                    // User query optimization
+  @@index([status])                    // Status filtering
+  @@index([createdAt])                 // Time range query optimization
+  @@index([userId, createdAt])         // Compound query optimization
+  @@index([userId, status])            // User + status filtering
+  @@index([status, createdAt])         // Status + time filtering
+}
+
+model Message {
+  id           String   @id @default(uuid())
+  sessionId    String
+  session      Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role         String   // user, assistant, system
+  content      String
+  tokens       Int?
+  metadata     String?  // JSON string for additional message data
+  createdAt    DateTime @default(now())
+
+  @@index([sessionId])
+  @@index([createdAt])
+  @@index([sessionId, createdAt])     // Session + time range query
+}
+
+// Tool Management
+model Tool {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String
+  category    String   // utility, data, action, etc.
+  schema      String   // JSON schema for parameters
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  toolCalls   ToolCall[]
+
+  @@index([name])
+  @@index([category])
+  @@index([enabled])                   // Filter by enabled status
+  @@index([category, enabled])         // Category + enabled filtering
+}
+
+model ToolCall {
+  id          String   @id @default(uuid())
+  sessionId   String?
+  session     Session? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  toolId      String?
+  tool        Tool?    @relation(fields: [toolId], references: [id], onDelete: SetNull)
+  toolName    String
+  parameters  String   // JSON string
+  result      String?  // JSON string
+  status      String   @default("pending") // pending, running, completed, failed
+  error       String?
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+
+  @@index([toolName])
+  @@index([status])
+  @@index([startedAt])
+  @@index([sessionId, startedAt])      // Session + time query
+  @@index([toolName, status])          // Tool + status filtering
+  @@index([status, startedAt])         // Status + time filtering
+}
+
+// Permission Management
+model Permission {
+  id          String   @id @default(uuid())
+  userId      String
+  resource    String   // tool, session, llm, etc.
+  action      String   // read, write, execute, etc.
+  conditions  String?  // JSON string for conditional rules
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, resource, action])
+  @@index([userId])
+  @@index([resource])
+  @@index([userId, resource])          // User + resource query
+  @@index([resource, action])          // Resource + action filtering
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  permissions String   // JSON array of permission IDs
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([name])
+}
+
+model UserRole {
+  id        String   @id @default(uuid())
+  userId    String
+  roleId    String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, roleId])
+  @@index([userId])
+  @@index([roleId])                    // Role lookup optimization
+}

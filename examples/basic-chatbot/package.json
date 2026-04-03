@@ -1,0 +1,22 @@
+{
+  "name": "basic-chatbot",
+  "version": "1.0.0",
+  "description": "Basic chatbot example using OpenAgent Framework",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "@openagent/core": "^1.0.0",
+    "@openagent/llm-openai": "^1.0.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "nodemon": "^3.0.2"
+  }
+}

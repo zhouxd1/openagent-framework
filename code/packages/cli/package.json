@@ -1,0 +1,87 @@
+{
+  "name": "@openagent/cli",
+  "version": "0.1.0-alpha.1",
+  "description": "Command-line interface for OpenAgent Framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "openagent": "./bin/run.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "npm run build && oclif manifest && oclif readme",
+    "postpack": "rm -f oclif.manifest.json"
+  },
+  "dependencies": {
+    "@oclif/core": "^3.15.0",
+    "@oclif/plugin-help": "^6.0.12",
+    "@oclif/plugin-plugins": "^4.1.12",
+    "@oclif/plugin-version": "^2.0.11",
+    "@openagent/core": "^0.1.0-alpha.1",
+    "@openagent/llm-openai": "^0.1.0-alpha.1",
+    "@openagent/tools": "^0.1.0-alpha.1",
+    "@types/fs-extra": "^11.0.4",
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.3.4",
+    "inquirer": "^9.2.0",
+    "marked": "^11.0.0",
+    "marked-terminal": "^6.0.0",
+    "ora": "^7.0.0"
+  },
+  "devDependencies": {
+    "@oclif/test": "^3.1.11",
+    "@types/inquirer": "^9.0.7",
+    "@types/marked-terminal": "^6.0.0",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "oclif": {
+    "bin": "openagent",
+    "dirname": "openagent",
+    "commands": "./dist/commands",
+    "hooks": {
+      "init": "./dist/hooks/init"
+    },
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-version",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "config": {
+        "description": "Manage CLI configuration"
+      },
+      "session": {
+        "description": "Manage agent sessions"
+      },
+      "tool": {
+        "description": "Manage and execute tools"
+      },
+      "provider": {
+        "description": "Manage LLM providers"
+      },
+      "llm": {
+        "description": "LLM provider operations"
+      }
+    }
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "cli",
+    "oclif"
+  ],
+  "author": "OpenAgent Team",
+  "license": "MIT",
+  "files": [
+    "/bin",
+    "/dist",
+    "/oclif.manifest.json"
+  ]
+}

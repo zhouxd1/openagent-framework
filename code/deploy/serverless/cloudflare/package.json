@@ -1,0 +1,25 @@
+{
+  "name": "openagent-cloudflare",
+  "version": "1.0.0",
+  "description": "OpenAgent Framework - Cloudflare Workers Deployment",
+  "main": "dist/worker.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:prod": "wrangler deploy --env production",
+    "tail": "wrangler tail",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@openagent/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.22.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

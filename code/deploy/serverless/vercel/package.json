@@ -1,0 +1,22 @@
+{
+  "name": "openagent-vercel",
+  "version": "1.0.0",
+  "description": "OpenAgent Framework - Vercel Edge Functions Deployment",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel",
+    "logs": "vercel logs"
+  },
+  "dependencies": {
+    "@openagent/core": "workspace:*",
+    "@vercel/node": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vercel": "^33.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

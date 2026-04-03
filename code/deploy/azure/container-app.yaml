@@ -1,0 +1,67 @@
+# Azure Container App Configuration
+location: eastus
+name: openagent
+type: Microsoft.App/containerApps
+properties:
+  managedEnvironmentId: /subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/YOUR_RESOURCE_GROUP/providers/Microsoft.App/managedEnvironments/openagent-env
+  configuration:
+    ingress:
+      external: true
+      targetPort: 3000
+      transport: auto
+      traffic:
+        - weight: 100
+          latestRevision: true
+    secrets:
+      - name: database-url
+        value: "postgresql://openagent:change-me@postgres.postgres.database.azure.com:5432/openagent"
+      - name: redis-url
+        value: "redis://:change-me@redis.redis.cache.windows.net:6379"
+      - name: openai-api-key
+        value: "your-openai-api-key"
+  template:
+    containers:
+      - name: openagent
+        image: openagent/openagent:latest
+        env:
+          - name: NODE_ENV
+            value: "production"
+          - name: LOG_LEVEL
+            value: "info"
+          - name: PORT
+            value: "3000"
+          - name: DATABASE_URL
+            secretRef: database-url
+          - name: REDIS_URL
+            secretRef: redis-url
+          - name: OPENAI_API_KEY
+            secretRef: openai-api-key
+        resources:
+          cpu: 0.5
+          memory: 1Gi
+        probes:
+          - type: Liveness
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          - type: Readiness
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+    scale:
+      minReplicas: 2
+      maxReplicas: 10
+      rules:
+        - name: cpu-scaling
+          custom:
+            type: cpu
+            metadata:
+              type: Utilization
+              value: "80"
+tags:
+  Project: OpenAgent
+  Environment: Production

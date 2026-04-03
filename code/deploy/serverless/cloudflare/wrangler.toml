@@ -1,0 +1,51 @@
+name = "openagent"
+main = "dist/worker.js"
+compatibility_date = "2024-01-01"
+
+# Workers configuration
+workers_dev = true
+
+# Build configuration
+[build]
+command = "npm run build"
+
+# Environment variables
+[vars]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+
+# Production configuration
+[env.production]
+name = "openagent-prod"
+workers_dev = false
+routes = [
+  { pattern = "api.openagent.dev/*", zone_name = "openagent.dev" }
+]
+
+[env.production.vars]
+NODE_ENV = "production"
+LOG_LEVEL = "info"
+
+# Secrets (use wrangler secret put)
+# DATABASE_URL
+# REDIS_URL
+# OPENAI_API_KEY
+
+# KV namespace (if needed)
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "your-kv-namespace-id"
+
+# D1 database (if needed)
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "openagent-db"
+# database_id = "your-database-id"
+
+# Limits
+[limits]
+cpu_ms = 50
+
+# Observability
+[observability]
+enabled = true

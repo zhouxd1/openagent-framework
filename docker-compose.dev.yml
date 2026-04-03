@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  # OpenAgent 主服务（开发模式）
+  openagent:
+    build:
+      context: ./code
+      dockerfile: Dockerfile.dev
+    container_name: openagent-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://openagent:openagent@postgres:5432/openagent_dev
+      - REDIS_URL=redis://redis:6379
+      - LOG_LEVEL=debug
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./code:/app
+      - /app/node_modules
+    networks:
+      - openagent-network
+    command: npm run dev
+
+  # PostgreSQL 数据库
+  postgres:
+    image: postgres:16-alpine
+    container_name: openagent-postgres-dev
+    environment:
+      - POSTGRES_USER=openagent
+      - POSTGRES_PASSWORD=openagent
+      - POSTGRES_DB=openagent_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+    networks:
+      - openagent-network
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    container_name: openagent-redis-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-dev-data:/data
+    networks:
+      - openagent-network
+
+  # Adminer 数据库管理工具（可选）
+  adminer:
+    image: adminer:latest
+    container_name: openagent-adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - openagent-network
+    profiles:
+      - tools
+
+  # Redis Commander（可选）
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: openagent-redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    networks:
+      - openagent-network
+    profiles:
+      - tools
+
+volumes:
+  postgres-dev-data:
+  redis-dev-data:
+
+networks:
+  openagent-network:
+    driver: bridge

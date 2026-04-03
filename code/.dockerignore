@@ -1,0 +1,65 @@
+# Docker Ignore File
+
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist
+build
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*
+.docker
+
+# Tests
+coverage
+.nyc_output
+*.test.ts
+*.spec.ts
+tests
+
+# Documentation
+docs
+*.md
+!README.md
+
+# Development files
+.eslintrc.json
+.prettierrc
+tsconfig.json
+vitest.config.ts
+.editorconfig
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Temporary files
+tmp
+temp
+*.tmp

@@ -1,0 +1,98 @@
+service: openagent
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'production'}
+  timeout: 30
+  memorySize: 1024
+  
+  environment:
+    NODE_ENV: production
+    LOG_LEVEL: ${env:LOG_LEVEL, 'info'}
+    DATABASE_URL: ${ssm:/openagent/${self:provider.stage}/database-url}
+    REDIS_URL: ${ssm:/openagent/${self:provider.stage}/redis-url}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource: 
+            - arn:aws:ssm:${self:provider.region}:*:parameter/openagent/*
+
+functions:
+  api:
+    handler: dist/deploy/serverless/aws-lambda/handler.handler
+    description: OpenAgent Framework API
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+    
+    # Warm-up configuration to reduce cold starts
+    warmup:
+      default:
+        enabled: true
+        events:
+          - schedule: rate(5 minutes)
+        concurrency: 2
+
+package:
+  individually: true
+  patterns:
+    - '!**/*'
+    - 'dist/deploy/serverless/aws-lambda/**'
+    - 'dist/packages/**'
+    - 'node_modules/**'
+
+custom:
+  warmup:
+    default:
+      enabled: true
+      events:
+        - schedule: rate(5 minutes)
+      concurrency: 2
+      timeout: 20
+      prewarm: true
+
+plugins:
+  - serverless-plugin-warmup
+
+resources:
+  Resources:
+    # API Gateway
+    ApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: OpenAgent-${self:provider.stage}
+        Description: OpenAgent Framework API
+
+    # CloudWatch Log Group
+    ApiLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        LogGroupName: /aws/lambda/openagent-${self:provider.stage}
+        RetentionInDays: 30
+
+  Outputs:
+    ApiEndpoint:
+      Description: API Gateway endpoint URL
+      Value: !Sub 'https://${ApiGatewayRestApi}.execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}'
