@@ -15,7 +15,7 @@ First off, thank you for considering contributing to OpenAgent Framework! It's p
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the OpenAgent Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to team@openagent.dev.
+This project and everyone participating in it is governed by the OpenAgent Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to lovejob2008@gmail.com.
 
 ## Development Setup
 
@@ -140,13 +140,13 @@ Then create a Pull Request on GitHub.
 ```
 packages/
   ├── core/
-  │   ├── src/
-  │   │   ├── interfaces.ts      # Public interfaces
-  │   │   ├── types.ts           # Type definitions
-  │   │   ├── implementation.ts  # Core logic
-  │   │   └── index.ts           # Public exports
-  │   └── tests/
-  │       └── implementation.test.ts
+  �?  ├── src/
+  �?  �?  ├── interfaces.ts      # Public interfaces
+  �?  �?  ├── types.ts           # Type definitions
+  �?  �?  ├── implementation.ts  # Core logic
+  �?  �?  └── index.ts           # Public exports
+  �?  └── tests/
+  �?      └── implementation.test.ts
 ```
 
 ### Example Code
@@ -321,7 +321,7 @@ describe('SessionManager', () => {
 
 - **GitHub Issues**: For bug reports and feature requests
 - **GitHub Discussions**: For questions and general discussion
-- **Email**: team@openagent.dev for private inquiries
+- **Email**: lovejob2008@gmail.com for private inquiries
 
 ## Recognition
 
